@@ -1,68 +1,47 @@
-## Inicialización del Proyecto con `uv`
+# FastAPI Curso
 
-`uv` es un instalador y gestor de paquetes de Python extremadamente rápido, escrito en Rust. Se utiliza para gestionar dependencias y entornos virtuales de manera eficiente.
+Este proyecto es un ejemplo básico de una aplicación FastAPI gestionada con `uv`.
 
-### 1. Instalación de `uv`
+## Requisitos previos
 
-#### macOS y Linux
-Para instalar `uv` en sistemas basados en Unix, puedes usar el siguiente comando en tu terminal:
+Necesitas tener instalado `uv` para gestionar las dependencias y el entorno virtual.
+
+### Instalación de uv
+
+Puedes instalar `uv` ejecutando el siguiente comando en tu terminal (macOS/Linux):
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-#### Windows
-En Windows, puedes instalarlo usando PowerShell:
+Para Windows:
 
 ```powershell
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Alternativamente, si ya tienes `pip` instalado, puedes instalar `uv` como un paquete de Python (aunque se recomienda el script de instalación independiente):
+## Inicialización y Ejecución
+
+1.  **Clonar el repositorio** (si aplica) o navegar a la carpeta del proyecto.
+
+2.  **Instalar dependencias**:
+    Si ya existe un archivo `pyproject.toml` o `uv.lock`, `uv` creará el entorno virtual automáticamente al ejecutar cualquier comando.
+
+3.  **Ejecutar el servidor de desarrollo**:
+    Para levantar la aplicación utilizando `uvicorn` dentro del entorno gestionado por `uv`, ejecuta:
+
+    ```bash
+    uv run uvicorn main:app --reload
+    ```
+
+    Esto iniciará el servidor en `http://127.0.0.1:8000`. El flag `--reload` permite que el servidor se reinicie automáticamente al detectar cambios en el código.
+
+## Gestión de Paquetes
+
+Para añadir una nueva librería al proyecto, utiliza el comando `uv add`. Por ejemplo, para añadir `requests`:
 
 ```bash
-pip install uv
+uv add requests
 ```
 
-### 2. Inicializar un nuevo proyecto
-
-Una vez instalado, puedes inicializar un nuevo entorno virtual y estructura de proyecto.
-
-1.  **Crear un entorno virtual:**
-    `uv` puede crear un entorno virtual (`.venv`) mucho más rápido que las herramientas tradicionales.
-
-    ```bash
-    uv venv
-    ```
-
-2.  **Activar el entorno virtual:**
-
-    *   **macOS/Linux:**
-        ```bash
-        source .venv/bin/activate
-        ```
-    *   **Windows:**
-        ```powershell
-        .venv\Scripts\activate
-        ```
-
-3.  **Instalar dependencias:**
-    Para instalar paquetes, utiliza `uv pip install`. Por ejemplo, para instalar FastAPI y Uvicorn:
-
-    ```bash
-    uv pip install fastapi uvicorn
-    ```
-
-4.  **Generar archivo de requisitos (opcional):**
-    Si necesitas generar un archivo `requirements.txt` basado en tu entorno actual:
-
-    ```bash
-    uv pip freeze > requirements.txt
-    ```
-
-5.  **Instalar desde requirements.txt:**
-    Si ya tienes un archivo de requisitos:
-
-    ```bash
-    uv pip install -r requirements.txt
-    ```
+Esto actualizará automáticamente tu archivo `pyproject.toml` y el archivo de bloqueo `uv.lock`.
