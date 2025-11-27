@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Path
+from fastapi import FastAPI, Depends, HTTPException, Path
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
@@ -61,3 +61,14 @@ def create_item(item: ItemSchema, db: Session = Depends(get_db)):
 def get_items(ItemID: int = Path(..., ge=1, description="id del item"), db: Session = Depends(get_db)):
     items = db.query(Item).filter(Item.id == ItemID).first()
     return items
+
+@app.delete("/items/{ItemID}", tags=["Item"])
+def get_item(ItemID: int, db: Session = Depends(get_db)):
+    item = db.query(Item).filter(Item.id == ItemID).first()
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Item no encontrado")
+    
+    db.delete(item)
+    db.commit()
+    return {"msg": "Item eliminado", "item": item}

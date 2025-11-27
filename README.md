@@ -56,3 +56,37 @@ uv add requests
 ```
 
 Esto actualizará automáticamente tu archivo `pyproject.toml` y el archivo de bloqueo `uv.lock`.
+
+
+## REQUEST 
+A continuación se detallan algunos ejemplos de peticiones HTTP para interactuar con la API.
+
+### 1. Crear un Item (POST)
+
+Crea un nuevo elemento enviando un objeto JSON.
+
+**URL:** `http://localhost:8000/items`
+**Método:** `POST`
+**Body (JSON):**
+
+```json
+{
+    "nombre": "Xbox",
+    "precio": 300,
+    "disponible": "True"
+}
+```
+
+### 2. Obtener un Item (GET)
+
+Recupera la información de un elemento específico mediante su ID.
+
+**URL:** `http://localhost:8000/items/14`
+**Método:** `GET`
+
+### 3. Eliminar un Item (DELETE)
+
+Elimina un elemento existente mediante su ID.
+
+**URL:** `http://localhost:8000/items/4`
+**Método:** `DELETE`
