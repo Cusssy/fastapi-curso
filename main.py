@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Path
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
@@ -6,7 +6,8 @@ from typing import Optional, List
 
 from dbmanager import get_db
 
-from modelitem import Item, ItemSchema
+from modelitem import Item
+from schemas import ItemSchema, ItemResponse
 
 
 app = FastAPI()
@@ -43,7 +44,8 @@ def get_data():
 #     item_temp["id"] = contador
 #     contador += 1
 #     return {"msg": "Item afegit", "item": item}
-@app.post("/items", tags=["Item"], response_model=None)
+
+@app.post("/items", tags=["Item"], response_model=ItemResponse)
 def create_item(item: ItemSchema, db: Session = Depends(get_db)):
     ItemNuevo = Item(
         nombre=item.nombre,
@@ -54,3 +56,8 @@ def create_item(item: ItemSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(ItemNuevo)
     return ItemNuevo
+
+@app.get("/items/{ItemID}", tags=["Item"])
+def get_items(ItemID: int = Path(..., ge=1, description="id del item"), db: Session = Depends(get_db)):
+    items = db.query(Item).filter(Item.id == ItemID).first()
+    return items

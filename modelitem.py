@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from database import Base
-from pydantic import BaseModel
 
 
 class Alumno(Base):
@@ -20,7 +19,3 @@ class Item(Base):
     disponible = Column(Boolean, default=False)
     
 
-class ItemSchema(BaseModel):
-    nombre: str
-    precio: float
-    disponible: bool
