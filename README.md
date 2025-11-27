@@ -27,6 +27,17 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 2.  **Instalar dependencias**:
     Si ya existe un archivo `pyproject.toml` o `uv.lock`, `uv` creará el entorno virtual automáticamente al ejecutar cualquier comando.
 
+### Instalación de dependencias existentes
+
+Si acabas de clonar el proyecto y quieres instalar todas las dependencias definidas en `pyproject.toml` (similar a `npm install`), simplemente ejecuta:
+
+```bash
+uv sync
+```
+
+Esto creará el entorno virtual (si no existe) e instalará todas las dependencias necesarias.
+
+
 3.  **Ejecutar el servidor de desarrollo**:
     Para levantar la aplicación utilizando `uvicorn` dentro del entorno gestionado por `uv`, ejecuta:
 
