@@ -1,4 +1,4 @@
 from database import Base, engine
-from modelitem import Alumno
+from models.item import Alumno
 
 Base.metadata.create_all(bind=engine)
