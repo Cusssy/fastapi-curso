@@ -5,15 +5,14 @@ from typing import List
 
 from db.dbmanager import get_db
 
-from models.item import Item
-from schemas.schemas import ItemSchema, ItemResponse
 
-from routes import item
+from routes import item, cliente
 
 
 app = FastAPI()
 
 app.include_router(item.router)
+app.include_router(cliente.router)
 
 app.add_middleware(
     CORSMiddleware,
