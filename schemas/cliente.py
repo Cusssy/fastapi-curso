@@ -9,6 +9,7 @@ class ClienteSchema(BaseModel):
     email: str
     bio: str
     hashed_password: str
+    items: Optional[int] = None
     
 class ClienteResponse(BaseModel):
     id: Optional[int] = None
@@ -17,3 +18,4 @@ class ClienteResponse(BaseModel):
     telefono: str
     email: str
     bio: str
+    Optional[int] = None

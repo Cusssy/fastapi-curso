@@ -7,6 +7,7 @@ class ItemSchema(BaseModel):
     nombre: str
     precio: float
     disponible: bool
+    cliente_id: Optional[int] = None
     
 class ItemResponse(BaseModel):
     id: int

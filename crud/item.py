@@ -44,6 +44,7 @@ def update_item_crud(ItemID: int, db: Session, datos: ItemSchema):
     item.nombre     = datos.nombre
     item.precio     = datos.precio
     item.disponible = datos.disponible
+    item.cliente_id = datos.cliente_id
     
     
     db.commit()

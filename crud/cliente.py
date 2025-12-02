@@ -6,7 +6,12 @@ from models.cliente import Cliente
 from schemas.cliente import ClienteSchema, ClienteResponse
 
 def get_clients_crud(db: Session):
-    return db.query(Cliente).all()
+    clientres = db.query(Cliente).all()
+    
+    for cliente in clientres:
+        print(cliente.items) 
+    
+    return 
 
 
 def create_client_crud(cliente: ClienteSchema, db: Session):
@@ -17,6 +22,8 @@ def create_client_crud(cliente: ClienteSchema, db: Session):
         email=cliente.email,
         bio=cliente.bio,
         hashed_password=cliente.hashed_password
+        
+    
     )
     db.add(ClientNuevo)
     db.commit()
@@ -50,6 +57,7 @@ def update_client_crud(ClientID: int, db: Session, datos: ClienteSchema):
     client.email = datos.email
     client.bio = datos.bio
     client.hashed_password = datos.hashed_password
+    
     
     
     db.commit()
