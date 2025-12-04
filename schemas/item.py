@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-
+from schemas.cliente import ClienteResponse
 
 class ItemSchema(BaseModel):
     id: Optional[int] = None
@@ -23,7 +23,7 @@ class ItemClienteResponse(BaseModel):
     nombre: str
     precio: float
     disponible: bool
-    cliente_id: Optional[int] = None
+    cliente_id: Optional[ClienteResponse] = None
 
     class config:
         from_attributes = True

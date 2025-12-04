@@ -7,19 +7,29 @@ from typing import Optional, List
 from db.dbmanager import get_db
 
 from models.cliente import Cliente
-from schemas.cliente import ClienteSchema, ClienteItemsResponse
+from schemas.cliente import ClienteSchema, ClienteItemsResponse, ClienteResponse
 
 from crud.cliente import get_clients_crud, create_client_crud, get_client_crud, delete_client_crud, update_client_crud
 
 router = APIRouter(prefix="/clients", tags=["client"])
 
 # Buscar todos
-@router.get("/", response_model=List[ClienteItemsResponse])
+@router.get("/", response_model=List[ClienteResponse])
+def get_clients(db: Session = Depends(get_db)):
+    return get_clients_crud(db)
+
+# Buscar todos y sus items
+@router.get("/items", response_model=List[ClienteItemsResponse])
 def get_clients(db: Session = Depends(get_db)):
     return get_clients_crud(db)
 
 # Buscar por ID
-@router.get("/{ClientID}")
+@router.get("/{ClientID}", response_model=ClienteResponse)
+def get_client(ClientID: int = Path(..., ge=1, description="id del client"), db: Session = Depends(get_db)):
+    return get_client_crud(ClientID, db)
+
+# Buscar por ID y sus Items
+@router.get("/{ClientID}/items", response_model=ClienteItemsResponse)
 def get_client(ClientID: int = Path(..., ge=1, description="id del client"), db: Session = Depends(get_db)):
     return get_client_crud(ClientID, db)
 
