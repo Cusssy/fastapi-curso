@@ -15,7 +15,7 @@ class ItemResponse(BaseModel):
     nombre: str
     
     class config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ItemClienteResponse(BaseModel):
@@ -26,6 +26,6 @@ class ItemClienteResponse(BaseModel):
     cliente_id: Optional[int] = None
 
     class config:
-        orm_mode = True
+        from_attributes = True
 
 

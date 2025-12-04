@@ -12,7 +12,7 @@ class ClienteSchema(BaseModel):
     hashed_password: str    
     
     class config:
-        orm_mode = True
+        from_attributes = True
     
 
 class ClienteResponse(BaseModel):
@@ -20,7 +20,7 @@ class ClienteResponse(BaseModel):
     nombre: str
     
     class config:
-        orm_mode = True
+        from_attributes = True
 
 class ClienteItemsResponse(BaseModel):
     id: int
@@ -32,4 +32,4 @@ class ClienteItemsResponse(BaseModel):
     items: List[ItemClienteResponse] = []
     
     class config:
-        orm_mode = True
+        from_attributes = True
