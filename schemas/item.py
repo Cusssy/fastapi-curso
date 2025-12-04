@@ -8,7 +8,24 @@ class ItemSchema(BaseModel):
     precio: float
     disponible: bool
     cliente_id: Optional[int] = None
-    
+
+
 class ItemResponse(BaseModel):
     id: int
     nombre: str
+    
+    class config:
+        orm_mode = True
+
+
+class ItemClienteResponse(BaseModel):
+    id: int
+    nombre: str
+    precio: float
+    disponible: bool
+    cliente_id: Optional[int] = None
+
+    class config:
+        orm_mode = True
+
+
