@@ -8,31 +8,24 @@ from schemas.cliente import ClienteSchema, ClienteResponse
 def get_clients_crud(db: Session):
     clientsres = db.query(Cliente).all()
     
-    for cliente in clientsres:
-        cliente.items
+    if not clientsres:
+        raise HTTPException(status_code=404, detail="No hay clientes registrados")
     
     return clientsres
 
-def get_client_crud(db: Session):
-    clientres = db.query(Cliente).filter(Cliente.id == cliente_id).first()
+def get_client_crud(ClienteID: int,db: Session):
+    clientres = db.query(Cliente).filter(Cliente.id == ClienteID).first()
     
-    for cliente in clientres:
-        cliente.items
+    if not clientres:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+    
     
     return clientres
 
 
 def create_client_crud(cliente: ClienteSchema, db: Session):
-    ClientNuevo = Cliente(
-        nombre=cliente.nombre,
-        usuario=cliente.usuario,
-        telefono=cliente.telefono,
-        email=cliente.email,
-        bio=cliente.bio,
-        hashed_password=cliente.hashed_password
-        
+    ClientNuevo = Cliente(**cliente.model_dump())
     
-    )
     db.add(ClientNuevo)
     db.commit()
     db.refresh(ClientNuevo)
@@ -54,7 +47,7 @@ def delete_client_crud(ClientID: int, db: Session):
 
 def update_client_crud(ClientID: int, db: Session, datos: ClienteSchema):
     
-    client = db.query(Cliente).filter(Cliente.id == ClientID).first()
+    client = get_client_crud(ClientID, db)
     
     if not client:
         raise HTTPException(status_code=404, detail="Item no encontrado")
@@ -65,9 +58,7 @@ def update_client_crud(ClientID: int, db: Session, datos: ClienteSchema):
     client.email = datos.email
     client.bio = datos.bio
     client.hashed_password = datos.hashed_password
-    
-    
-    
+
     db.commit()
     db.refresh(client)
     return client
