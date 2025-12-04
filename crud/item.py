@@ -13,7 +13,8 @@ def create_item_crud(item: ItemSchema, db: Session):
     ItemNuevo = Item(
         nombre=item.nombre,
         precio=item.precio,
-        disponible=item.disponible
+        disponible=item.disponible,
+        cliente_id=item.cliente_id
     )
     db.add(ItemNuevo)
     db.commit()

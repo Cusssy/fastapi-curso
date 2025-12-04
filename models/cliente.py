@@ -15,3 +15,4 @@ class Cliente(Base):
     
     # 1 a muchos: un cliente puede tener muchos items
     items = relationship("Item", back_populates="cliente")
+

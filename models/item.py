@@ -12,7 +12,7 @@ class Item(Base):
     precio = Column(Float, nullable=False)
     disponible = Column(Boolean, default=False)
     
-    cliente_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
+    cliente_id = Column(Integer, ForeignKey("clients.id"), nullable=True)
     
     # 1 a 1: muchos items pueden pertenecer a un cliente
     cliente = relationship("Cliente", back_populates="items")

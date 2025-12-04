@@ -6,12 +6,20 @@ from models.cliente import Cliente
 from schemas.cliente import ClienteSchema, ClienteResponse
 
 def get_clients_crud(db: Session):
-    clientres = db.query(Cliente).all()
+    clientsres = db.query(Cliente).all()
+    
+    for cliente in clientsres:
+        cliente.items
+    
+    return clientsres
+
+def get_client_crud(db: Session):
+    clientres = db.query(Cliente).filter(Cliente.id == cliente_id).first()
     
     for cliente in clientres:
-        print(cliente.items) 
+        cliente.items
     
-    return 
+    return clientres
 
 
 def create_client_crud(cliente: ClienteSchema, db: Session):

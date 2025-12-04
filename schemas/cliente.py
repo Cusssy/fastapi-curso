@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
+from .item import ItemResponse
 
 class ClienteSchema(BaseModel):
     id: Optional[int] = None
@@ -8,8 +9,7 @@ class ClienteSchema(BaseModel):
     telefono: str
     email: str
     bio: str
-    hashed_password: str
-    items: Optional[int] = None
+    hashed_password: str    
     
 class ClienteResponse(BaseModel):
     id: Optional[int] = None
@@ -18,4 +18,4 @@ class ClienteResponse(BaseModel):
     telefono: str
     email: str
     bio: str
-    Optional[int] = None
+    items: List[ItemResponse] = []
