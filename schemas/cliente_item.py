@@ -33,11 +33,12 @@ class ItemResponse(BaseModel):
     class config:
         from_attributes = True
         
-class ClienteItemsResponse(BaseModel):
-    items: List["ItemClienteResponse"] = []
-    
+
+class ItemClienteResponse(BaseModel):
+    cliente: Optional["ClienteResponse"] = None
+
     class config:
-        from_attributes = True        
+        from_attributes = True
 
 class ClienteResponse(BaseModel):
     id: int
@@ -46,11 +47,13 @@ class ClienteResponse(BaseModel):
     class config:
         from_attributes = True
         
-
-class ItemClienteResponse(BaseModel):
-    cliente: Optional["ClienteResponse"] = None
-
+        
+class ClienteItemsResponse(BaseModel):
+    items: List["ItemClienteResponse"] = []
+    
     class config:
-        from_attributes = True
+        from_attributes = True        
+
+
 
 

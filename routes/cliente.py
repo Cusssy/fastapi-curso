@@ -7,7 +7,7 @@ from typing import Optional, List
 from db.dbmanager import get_db
 
 from models.cliente import Cliente
-from schemas.cliente import ClienteSchema, ClienteItemsResponse, ClienteResponse
+from schemas.cliente_item import ClienteSchema, ClienteItemsResponse, ClienteResponse
 
 from crud.cliente import get_clients_crud, create_client_crud, get_client_crud, delete_client_crud, update_client_crud
 
