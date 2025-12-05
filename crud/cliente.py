@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException, Path, Body, APIRouter
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from models.cliente import Cliente
 
-from schemas.cliente import ClienteSchema, ClienteResponse
+from schemas.cliente_item import ClienteSchema, ClienteResponse
 
 def get_clients_crud(db: Session):
     clientsres = db.query(Cliente).all()
@@ -13,12 +13,28 @@ def get_clients_crud(db: Session):
     
     return clientsres
 
+def get_clients_items_crud(db: Session):
+    clientsres = db.query(Cliente).options(joinedload(Cliente.items)).all()
+    
+    if not clientsres:
+        raise HTTPException(status_code=404, detail="No hay clientes registrados")
+    
+    return clientsres
+
+
 def get_client_crud(ClienteID: int,db: Session):
     clientres = db.query(Cliente).filter(Cliente.id == ClienteID).first()
     
     if not clientres:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
     
+    return clientres
+
+def get_client_items_crud(ClienteID: int,db: Session):
+    clientres = db.query(Cliente).options(joinedload(Cliente.items)).filter(Cliente.id == ClienteID).first()
+    
+    if not clientres:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
     
     return clientres
 

@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException, Path, Body, APIRouter
 from sqlalchemy.orm import Session
 from models.item import Item
 
-from schemas.item import ItemSchema, ItemResponse
+from schemas.cliente_item import ItemSchema, ItemResponse
 
 def get_items_crud(db: Session):
     return db.query(Item).all()
